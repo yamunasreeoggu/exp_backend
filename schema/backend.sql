@@ -5,3 +5,4 @@ CREATE TABLE IF NOT EXISTS transactions (
     amount INT,
     description VARCHAR(255)
 );
+GRANT ALL ON transactions.* TO 'expense'@'%' IDENTIFIED BY 'ExpenseApp@1';
