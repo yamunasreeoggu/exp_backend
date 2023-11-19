@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const os = require('os');
 const fetch = require('node-fetch');
+const moment = require('moment');
 
 const app = express();
 const port = 8080;
@@ -24,9 +25,8 @@ app.get('/health',(req,res)=>{
 app.post('/transaction', (req,res)=>{
     var response = "";
     try{
-        console.log(req.body);
-        console.log(req.body.amount);
-        console.log(req.body.desc);
+        t=moment().unix()
+        console.log("{ \"timestamp\" : %d, \"msg\", \"Adding Expense\", \"amount\" : %d, \"Description\": \"%s\" }", t, req.body.amount, req.body.desc);
         var success = transactionService.addTransaction(req.body.amount,req.body.desc);
         if (success = 200) res.json({ message: 'added transaction successfully'});
     }catch (err){
@@ -39,11 +39,13 @@ app.get('/transaction',(req,res)=>{
     try{
         var transactionList = [];
        transactionService.getAllTransactions(function (results) {
-            console.log("we are in the call back:");
+            //console.log("we are in the call back:");
             for (const row of results) {
                 transactionList.push({ "id": row.id, "amount": row.amount, "description": row.description });
             }
-            console.log(transactionList);
+            t=moment().unix()
+            console.log("{ \"timestamp\" : %d, \"msg\" : \"Getting All Expenses\" }", t);
+            console.log("{ \"expenses\" : %j }", transactionList);
             res.statusCode = 200;
             res.json({"result":transactionList});
         });
@@ -56,6 +58,8 @@ app.get('/transaction',(req,res)=>{
 app.delete('/transaction',(req,res)=>{
     try{
         transactionService.deleteAllTransactions(function(result){
+            t=moment().unix()
+            console.log("{ \"timestamp\" : %d, \"msg\" : \"Deleted All Expenses\" }", t);
             res.statusCode = 200;
             res.json({message:"delete function execution finished."})
         })
@@ -95,5 +99,7 @@ app.get('/transaction/id',(req,res)=>{
 });
 
   app.listen(port, () => {
-    console.log(`App Started on Port ${port}`)
+    t=moment().unix()
+    console.log("{ \"timestamp\" : %d, \"msg\" : \"App Started on Port %s\" }", t,  port)
   })
+//
