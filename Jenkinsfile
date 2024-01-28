@@ -14,6 +14,12 @@ pipeline {
       }
     }
 
+    stage( 'Unit Tests') {
+      steps {
+        sh 'echo Unit Tests'
+      }
+    }
+
     stage ( 'Release' ) {
       steps {
         sh 'echo release'
