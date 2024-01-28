@@ -8,12 +8,19 @@ pipeline {
   }
 
   stages {
-    stage( 'Continuous Integration') {
+    stage( 'Code Quality') {
       steps {
-        echo CI
+        sh 'sonar-scanner -Dsonar.host.url=http://44.223.94.106:9000 -Dsonar.login=admin -Dsonar.password=admin123 -Dsonar.projectKey=exp_backend -Dsonar.qualitygate.wait=true'
+      }
+    }
+
+    stage ( 'Release' ) {
+      steps {
+        sh 'echo release'
       }
     }
   }
+
   post {
     always {
     cleanWs()
