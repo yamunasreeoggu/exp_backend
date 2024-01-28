@@ -8,7 +8,7 @@ pipeline {
   }
 
   stages {
-    stage( 'CI') {
+    stage( 'Continuous Integration') {
       steps {
         echo CI
       }
