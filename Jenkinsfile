@@ -18,7 +18,7 @@ pipeline {
     stage( 'Code Quality') {
       when {
         allOf {
-          expression {env.TAG_NAME ==~ env.GIT_BRANCH }
+          expression {env.TAG_NAME != env.GIT_BRANCH }
         }
       }
 
@@ -31,7 +31,7 @@ pipeline {
       when {
         allOf {
           branch 'main'
-          expression {env.TAG_NAME ==~ env.GIT_BRANCH }
+          expression {env.TAG_NAME != env.GIT_BRANCH }
         }
       }
       steps {
