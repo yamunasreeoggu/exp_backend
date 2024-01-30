@@ -23,7 +23,7 @@ pipeline {
       }
 
       steps {
-        sh 'sonar-scanner -Dsonar.host.url=http://44.223.94.106:9000 -Dsonar.login=admin -Dsonar.password=admin123 -Dsonar.projectKey=exp_backend -Dsonar.qualitygate.wait=true'
+        sh 'sonar-scanner -Dsonar.host.url=http://3.230.172.62:9000 -Dsonar.login=admin -Dsonar.password=admin123 -Dsonar.projectKey=exp_backend -Dsonar.qualitygate.wait=true'
       }
     }
 
